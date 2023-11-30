@@ -28,9 +28,9 @@ class ListagemProdutosState extends State<ListagemProdutos> {
     loadProdutosSelecinados();
   }
 
-  void loadProdutosSelecinados(){
-    if(!widget.selecionados.isEmpty){
-      for(int index in widget.selecionados){
+  void loadProdutosSelecinados() {
+    if (!widget.selecionados.isEmpty) {
+      for (int index in widget.selecionados) {
         setState(() {
           selecionadosIndices.add(index);
         });
@@ -62,138 +62,134 @@ class ListagemProdutosState extends State<ListagemProdutos> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const Login()),
             );
-            ;
           },
         ),
         title: const Text("Login"),
       ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Selecionar Produto',
-                style: TextStyle(fontSize: 25.0, color: Color.fromARGB(255, 3, 46, 81))),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 100, 99, 99), width: 1.0),
-                ),
-                child: ListView.builder(
-                  itemCount: _produtos.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Produto produto = _produtos[index];
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (selecionadosIndices.contains(index)) {
-                            selecionadosIndices.remove(index);
-                          } else {
-                            selecionadosIndices.add(index);
-                          }
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: selecionadosIndices.contains(index)
-                                ? const Color.fromARGB(255, 141, 199, 247)
-                                : Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Cod #${produto.id}',
-                                  style: const TextStyle(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 20.0),
+          Text(
+            'Selecionar Produto',
+            style: TextStyle(
+                fontSize: 25.0, color: const Color.fromARGB(255, 3, 46, 81)),
+          ),
+          const SizedBox(height: 20.0),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: const Color.fromARGB(255, 100, 99, 99), width: 1.0),
+              ),
+              child: ListView.builder(
+                itemCount: _produtos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final Produto produto = _produtos[index];
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (selecionadosIndices.contains(index)) {
+                          selecionadosIndices.remove(index);
+                        } else {
+                          selecionadosIndices.add(index);
+                        }
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: selecionadosIndices.contains(index)
+                              ? const Color.fromARGB(255, 141, 199, 247)
+                              : Colors.grey[200],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Cod #${produto.id}',
+                                style: const TextStyle(
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 6.0),
-                                Text(
-                                  'Nome: ${produto.nome}',
-                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 6.0),
+                              Text(
+                                'Nome: ${produto.nome}',
+                                style: const TextStyle(
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 6.0),
-                                Text(
-                                  'Descrição: ${produto.descricao}',
-                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 6.0),
+                              Text(
+                                'Descrição: ${produto.descricao}',
+                                style: const TextStyle(
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ),
-                                const SizedBox(height: 6.0),
-                                Text(
-                                  'Preço: ${produto.preco.toStringAsFixed(2)} Reais',
-                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
+                              const SizedBox(height: 6.0),
+                              Text(
+                                'Preço: ${produto.preco.toStringAsFixed(2)} Reais',
+                                style: const TextStyle(
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 6.0),
-                                Text(
-                                  'Quantidade: ${produto.quantidade}',
-                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 6.0),
+                              Text(
+                                'Quantidade: ${produto.quantidade}',
+                                style: const TextStyle(
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
-            const SizedBox(height: 10.0),
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                List<Produto> produtosSelecionados = [];
+          ),
+          const SizedBox(height: 20.0),
+          ElevatedButton(
+            onPressed: () {
+              List<Produto> produtosSelecionados = [];
 
-                if (selecionadosIndices.isNotEmpty) {
-                  for (int index in selecionadosIndices) {
-                    produtosSelecionados.add(_produtos[index]);
-                  }
+              if (selecionadosIndices.isNotEmpty) {
+                for (int index in selecionadosIndices) {
+                  produtosSelecionados.add(_produtos[index]);
                 }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CarrinhoCompra(
-                      prodSelecionados: selecionadosIndices,
-                      produtos: produtosSelecionados,
-                    ),
+              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CarrinhoCompra(
+                    prodSelecionados: selecionadosIndices,
+                    produtos: produtosSelecionados,
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
                 fixedSize: const Size(180, 50),
               ),
               child: const Text('Avançar'),
-            ),
-            const SizedBox(height: 100.0),
-          ],
-        ),
+          ),
+          const SizedBox(height: 50.0),
+        ],
       ),
     );
   }
