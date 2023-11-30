@@ -65,7 +65,7 @@ class LoginState extends State<Login> {
                 ),
               ),
             ),
-            const SizedBox(height: 10.0),
+            const SizedBox(height: 5.0),
             const Text(
               'Usuário',
               style: TextStyle(fontSize: 18.0, color: Color.fromARGB(255, 3, 46, 81)),

@@ -23,6 +23,9 @@ class DB {
       path,
       version: 1,
       onCreate: (db, version) async {
+        await db.execute('''DROP TABLE usuarios''');
+        await db.execute('''DROP TABLE produtos''');
+        await db.execute('''DROP TABLE compras''');
         await db.execute(
           '''CREATE TABLE usuarios(
               id INTEGER PRIMARY KEY AUTOINCREMENT, 
