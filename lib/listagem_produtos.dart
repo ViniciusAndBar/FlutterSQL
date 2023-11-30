@@ -118,7 +118,7 @@ class ListagemProdutosState extends State<ListagemProdutos> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Cod #${produto.id}',
+                                'Código do Produto ${produto.id}',
                                 style: const TextStyle(
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold),

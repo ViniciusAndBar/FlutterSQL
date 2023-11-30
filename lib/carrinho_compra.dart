@@ -61,140 +61,130 @@ class CarrinhoCompraState extends State<CarrinhoCompra> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ListagemProdutos(selecionados: widget.prodSelecionados)),
-            );
-            ;
-          },
-        ),
-        title: const Text("Carrinho"),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ListagemProdutos(selecionados: widget.prodSelecionados),
+            ),
+          );
+        },
       ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 50.0),
-            Text('Quantidade de produtos ${calcularQuantidadeTotal()}',
-                style: TextStyle(fontSize: 25.0, color: Color.fromARGB(255, 3, 46, 81))),
-            Text('Valor total: ${calcularValorTotal()[0]}',
-                style: TextStyle(fontSize: 25.0, color: Color.fromARGB(255, 3, 46, 81))),
-            Text(desconto ? 'Desconto: 5%' : 'Desconto: 0%'),
-            desconto ? Text("Desconto: ${calcularValorTotal()[1]}") : Text(""),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1.0),
-                ),
-                child: ListView.builder(
-                  itemCount: _produtos.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = _produtos[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+      title: const Text("Carrinho"),
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 20.0),
+          Text(
+            'Total de Produtos: ${calcularQuantidadeTotal()}',
+            style: const TextStyle(fontSize: 25.0, color: Color.fromARGB(255, 0, 102, 204)),
+          ),
+          Text(
+            'Valor Total: ${calcularValorTotal()[0]}',
+            style: const TextStyle(fontSize: 25.0, color: Color.fromARGB(255, 0, 102, 204)),
+          ),
+          Text(
+            desconto ? 'Desconto: 5%' : 'Desconto: 0%',
+            style: TextStyle(fontSize: 18.0, color: desconto ? Colors.green : Colors.black),
+          ),
+          desconto
+              ? Text(
+                  "Valor do Desconto: ${calcularValorTotal()[1]}",
+                  style: TextStyle(fontSize: 18.0, color: Colors.green),
+                )
+              : Container(),
+          const SizedBox(height: 20.0),
+          Expanded(
+            child: Container(
+              child: ListView.builder(
+                itemCount: _produtos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = _produtos[index];
+                  return Card(
+                    elevation: 4.0,
+                    margin: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text('Cod#${item.id}',
-                                      style: const TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold)),
-                                  const SizedBox(height: 8.0),
-                                  Text('${item.nome}',
-                                      style: const TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold)),
-                                  const SizedBox(height: 8.0),
-                                  const Text('Preço:'),
-                                  Text('${item.preco}',
-                                      style: const TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold)),
-                                ],
+                              Text(
+                                'Código do Produto ${item.id}',
+                                style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                               ),
-                              const SizedBox(height: 8.0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Text('Quantidade'),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          quantidadesList[index] =
-                                              int.parse(value);
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                '${item.nome}',
+                                style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Preço: ${item.preco}',
+                                style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                        ),
+                          const SizedBox(height: 8.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Quantidade'),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      quantidadesList[index] = int.parse(value);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Login(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(180, 50),
-                  ),
-                  child: const Text('Cancelar Pedido'),
+          ),
+          const SizedBox(height: 20.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: const Color.fromARGB(255, 0, 153, 51),
+                      content: const Text('Pedido Enviado Com Sucesso'),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(180, 50),
+                  primary: Color.fromARGB(255, 197, 226, 255),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          backgroundColor: Color(Color.fromARGB(255, 58, 172, 243).value),
-                          content: Text('Pedido Enviado Com Sucesso')),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(180, 50),
-                  ),
-                  child: const Text('Comprar'),
-                ),
-              ],
-            ),
-          ],
-        ),
+                child: const Text('Comprar'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20.0),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 }
