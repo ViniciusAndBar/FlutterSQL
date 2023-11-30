@@ -132,27 +132,12 @@ class ListagemProdutosState extends State<ListagemProdutos> {
                               ),
                               const SizedBox(height: 6.0),
                               Text(
-                                'Descrição: ${produto.descricao}',
-                                style: const TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                              const SizedBox(height: 6.0),
-                              Text(
                                 'Preço: ${produto.preco.toStringAsFixed(2)} Reais',
                                 style: const TextStyle(
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(height: 6.0),
-                              Text(
-                                'Quantidade: ${produto.quantidade}',
-                                style: const TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
                             ],
                           ),
                         ),
